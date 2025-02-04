@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import CustomUser
+import re
 
 
 INPUT_CLASSES = "form-control mt-2"
@@ -66,6 +67,40 @@ class CustomUserCreationForm(UserCreationForm):
             }
         ),
     )
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if not email.endswith("@utez.edu.mx"):
+            raise forms.ValidationError(
+                "El correo electrónico debe ser del dominio @utez.edu.mx"
+            )
+        return email
+
+    def clean_password1(self):
+        password = self.cleaned_data.get("password1")
+        if (
+            len(password) < 8
+            or not re.search(r"[!#$%&?]", password)
+            or not re.search(r"\d", password)
+        ):
+            raise forms.ValidationError(
+                "La contraseña debe tener al menos 8 caracteres, un símbolo (!, #, $, %, & o ?) y un número."
+            )
+        return password
+
+    def clean_control_number(self):
+        control_number = self.cleaned_data.get("control_number")
+        if len(control_number) != 10:
+            raise forms.ValidationError("La matrícula debe tener 10 caracteres.")
+        return control_number
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Las contraseñas no coinciden.")
+        return cleaned_data
 
 
 # Segundo Formulario (Inicio de sesion)

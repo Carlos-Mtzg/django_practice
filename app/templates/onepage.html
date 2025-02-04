@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="col">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Bienvenido a mi One Page</h1>
+                    <br>
+                    <p>Échale un vistazo a mis tarjetas</p>
+                </div>
+                <div class="col-6">
+                    <img class="img-fluid w-75"
+                        src="https://media.c5n.com/p/aec85ff7986d798f1f04017923d869d9/adjuntos/326/imagenes/000/200/0000200084/790x0/smart/portada-antes-ameri.png"
+                        alt="Antes de Ameri" />
+                </div>
+            </div>
+            <div class="row" id="tarjetas">
+                <div class="card col-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Esta es mi tarjeta por defecto</h5>
+                        <p class="card-text">Este es un texto genérico
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore perspiciatis deleniti
+                            reiciendis consequuntur, corrupti enim laborum! Temporibus pariatur consectetur modi
+                            officiis reprehenderit, autem at repudiandae ducimus tempora, nesciunt, culpa saepe.
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae vel nihil libero in.
+                            Laboriosam, quos, necessitatibus quibusdam ab quidem provident quasi quaerat voluptas
+                            accusantium eaque reiciendis inventore aut culpa ipsum!
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum ipsam excepturi quas optio
+                            voluptas necessitatibus quos neque molestias ea porro. Quia architecto quo deleniti officia
+                            alias reprehenderit aliquam nulla numquam.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        // Logica para la generacion de tarjetas
+        function loadcards(title, text) {
+            var card = document.createElement('div');
+            card.setAttribute('class', 'card col-4');
+
+            var body = document.createElement('div');
+            body.setAttribute('class', 'card-body');
+
+            var h5 = document.createElement('h5');
+            h5.setAttribute('class', 'card-title');
+            h5.innerHTML = title;
+
+            var p = document.createElement('p')
+            p.setAttribute('class', 'card-text')
+            p.innerHTML = text;
+
+            body.appendChild(h5);
+            body.appendChild(p);
+            card.appendChild(body);
+
+            document.getElementById('tarjetas').appendChild(card);
+        }
+
+        var i = 1;
+        window.addEventListener('scroll', () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
+                for (let index = 0; index < 5; index++) {
+                    if (i > 100) {
+                        break;
+                    }
+                    var object = {
+                        title: 'Esta es la Card: ' + i,
+                        text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt dolorum placeat distinctio voluptates repellendus quidem beatae laborum sed libero. Libero hic soluta obcaecati dicta impedit aperiam, ut magni. Eligendi, similique?',
+                    }
+                    loadcards(object.title, object.text);
+                    i++;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

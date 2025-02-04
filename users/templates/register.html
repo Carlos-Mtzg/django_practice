@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="form-container p-5 rounded shadow" style="width: 900px;">
+    <h1>Register</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/users/login">Back to Login</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Register</li>
+        </ol>
+    </nav>
+    <form class="d-flex flex-column" method="post" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <div class="inputs-container d-flex gap-4">
+            <div class="row form-group" style="width: 414px;">
+                <div class="mb-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    <div class="invalid-feedback">
+                        Invalid email. Use a @utez.edu.mx address.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                </div>
+                <div class="mb-3">
+                    {{ form.surname.label_tag }}
+                    {{ form.surname }}
+                </div>
+                <div class="mb-3">
+                    {{ form.control_number.label_tag }}
+                    {{ form.control_number }}
+                    <div class="invalid-feedback">
+                        Invalid control number. Use UTEZ control number
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group" style="width: 414px;">
+                <div class="mb-3">
+                    {{ form.age.label_tag }}
+                    {{ form.age }}
+                </div>
+                <div class="mb-3">
+                    {{ form.tel.label_tag }}
+                    {{ form.tel }}
+                    <div class="invalid-feedback">
+                        Phone number must be exactly 10 digits.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    {{ form.password1.label_tag }}
+                    {{ form.password1 }}
+                    <div class="invalid-feedback">
+                        Password must be at least 8 characters long, contain one uppercase letter, one number, and one
+                        special character.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                    <div class="invalid-feedback">
+                        Password do not match.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-container d-flex">
+            <button class="btn btn-success ms-auto" type="submit">
+                Registrarse
+                <i class="bi bi-box-arrow-in-right ms-1"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

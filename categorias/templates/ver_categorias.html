@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="content">
+      <div class="d-flex flex-column gap-3 align-items-center">
+        <h1>Lista de categorias usando JSON con promesas</h1>
+        <a class="btn btn-primary ms-auto" href="/categorias/agregar">
+          <i class="bi bi-plus-circle ps-2"></i>
+          Agregar
+        </a>
+      </div>
+
+
+      <div id="categorias" class="d-flex gap-3"></div>
+  </div>
+
+  <script>
+    function cargarCategorias() {
+        fetch('/categorias/api/get/').then((response) => response.json()).then((data) => {
+            let categoriasDiv = document.getElementById('categorias');
+            categoriasDiv.innerHTML = '';
+            data.forEach(categoria => {
+              categoriasDiv.innerHTML += `<div class="card p-3">
+                <p><strong>${categoria.nombre}</strong> <br> <img src ="${categoria.imagen}" alt="X" width="100"></p>
+              </div>`;
+            });
+          })
+          .catch(error => console.error('Error: ', error))
+      }
+      cargarCategorias();
+  </script>
+{% endblock %}
